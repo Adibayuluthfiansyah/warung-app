@@ -1,30 +1,24 @@
-import React from "react"
-import { Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,} from "@/components/ui/card"
+'use client'
+import React, { useEffect, useState } from "react"
+import type { Menu } from "@/lib/db-types";
+import supabase from "@/lib/db";
+
 
 export default function Home() {
+  const [menu, setMenus] = useState<Menu[]>([]);
+  
+  useEffect(() => {
+    const fetchMenus = async () => {
+      const {data, error} = await supabase.from('menu').select('*');
+      if (error) console.log('error:', error)
+        else setMenus(data);
+    };
+  fetchMenus();
+  },[supabase]);
   return (
     <div className="text-center">
       <h1 className="text-bold text-5xl">This Main Page</h1>
       <div className="pt-5">
-          <Card>
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-              <CardAction>Card Action</CardAction>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
       </div>
     </div>
   )
