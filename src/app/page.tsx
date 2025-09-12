@@ -8,7 +8,6 @@ const Home = () => {
     <div className='text-center'>
       <Navbar/>
       <LoginPage/>
-      <h1>This Is Home Page</h1>
     </div>
   )
 }
