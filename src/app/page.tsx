@@ -10,14 +10,21 @@ export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log('HomePage - User:', user);
+    console.log('HomePage - Loading:', loading);
+    console.log('HomePage - User warung:', user?.warung);
+
     if (!loading) {
       if (!user) {
+        console.log('No user, redirecting to login');
         router.push('/login');
       } else if (user.warung && user.warung.length > 0) {
-        // Redirect to first warung dashboard
-        router.push(`/${user.warung[0].slug}/dashboard`);
+        console.log('User has warung, redirecting to dashboard');
+        const slug = user.warung[0].slug;
+        console.log('Redirecting to:', `/${slug}/dashboard`);
+        router.push(`/${slug}/dashboard`);
       } else {
-        // No warung access, redirect to setup
+        console.log('No warung access, redirecting to setup');
         router.push('/setup-warung');
       }
     }
