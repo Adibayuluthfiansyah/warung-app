@@ -1,3 +1,4 @@
+// components/login-form.tsx
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -15,7 +16,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { auth } from "@/lib/auth";
+import { useAuth } from "@/components/auth/auth-context";
 
 export function LoginForm({
   className,
@@ -26,35 +27,28 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { data, error } = await auth.signIn(email, password);
+      const { error } = await login(email, password);
 
       if (error) {
         toast.error("Login gagal", {
-          description: error.message,
+          description: error.message || "Email atau password salah",
         });
         return;
       }
 
-      if (data.user) {
-        // Get user with warung access
-        const { user: userWithWarung } = await auth.getUserWithWarung();
-        
-        toast.success("Login berhasil!");
-        
-        // Redirect based on user's warung access
-        if (userWithWarung?.warung && userWithWarung.warung.length > 0) {
-          const firstWarung = userWithWarung.warung[0];
-          router.push(`/${firstWarung.slug}/dashboard`);
-        } else {
-          router.push("/setup-warung"); // Redirect to setup page if no warung
-        }
-      }
+      toast.success("Login berhasil!");
+      
+      // The AuthContext will handle the redirect based on user's warung access
+      // We can also manually redirect if needed
+      router.refresh();
+      
     } catch (error: any) {
       console.error('Login error:', error);
       toast.error("Login gagal", {
@@ -114,7 +108,7 @@ export function LoginForm({
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full" 
+                  className="w-full cursor-pointer" 
                   disabled={isLoading}
                 >
                   {isLoading ? (

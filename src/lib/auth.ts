@@ -1,4 +1,4 @@
-import  supabase  from './db'
+import supabase from './db'
 import type { User } from '@supabase/supabase-js'
 
 export interface AuthUser extends User {
@@ -84,5 +84,10 @@ export const auth = {
       console.error('Error in getUserWithWarung:', err)
       return { user: { ...user, warung: [] }, error: null }
     }
+  },
+
+  // Listen to auth state changes
+  onAuthStateChange(callback: (event: string, session: any) => void) {
+    return supabase.auth.onAuthStateChange(callback)
   }
 }

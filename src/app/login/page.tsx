@@ -6,10 +6,10 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight">
-            AnakinShop
+            WarungApp
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi, ipsam.
+            Lorem ipsum dolor, sit amet consectetur adipisicing.
           </p>
         </div>
         <LoginForm />
