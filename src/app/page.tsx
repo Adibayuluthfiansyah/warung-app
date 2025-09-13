@@ -10,7 +10,7 @@ export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('HomePage - User:', user);
+    console.log('HomePage - Users:', user);
     console.log('HomePage - Loading:', loading);
     console.log('HomePage - User warung:', user?.warung);
 
