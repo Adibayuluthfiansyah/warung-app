@@ -131,12 +131,6 @@ export function LoginForm({
           </form>
         </CardContent>
       </Card>
-      <div className="text-center text-xs text-balance text-muted-foreground">
-        Belum punya akun?{" "}
-        <a href="/register" className="underline underline-offset-4 hover:text-primary">
-          Daftar di sini
-        </a>
-      </div>
     </div>
   );
 }
