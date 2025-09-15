@@ -4,8 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function SetupWarungPage() {
+  const router = useRouter();
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted p-6">
       <div className="w-full max-w-md">
@@ -27,10 +29,15 @@ export default function SetupWarungPage() {
             
             <Button 
               variant="outline" 
-              className="w-full"
+              className="w-full cursor-pointer"
               onClick={() => window.location.href = 'mailto:admin@warungapp.com'}
             >
               Hubungi Administrator
+            </Button>
+            <Button
+            className="w-full cursor-pointer"
+            onClick={() => router.push('../login')}>
+                Login
             </Button>
           </CardContent>
         </Card>
